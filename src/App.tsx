@@ -1,5 +1,7 @@
 import React from 'react';
 import { Grid, Box } from '@mui/material';
+import HeaderUI from './components/HeaderUI';
+
 
 function App() {
   return (
@@ -18,7 +20,7 @@ function App() {
         </div>
 
         <Grid container spacing={5} justifyContent="center" alignItems="center">
-          <Grid size={{ xs: 12, md: 12 }}>Elemento: Encabezado</Grid>
+          <Grid size={{ xs: 12, md: 12 }}> <HeaderUI></HeaderUI>Elemento: Encabezado</Grid>
           <Grid size={{ xs: 12, md: 12 }}>Elemento: Alertas</Grid>
           <Grid size={{ xs: 12, md: 3 }}>Elemento: Selector</Grid>
           <Grid size={{ xs: 12, md: 9 }}>Elemento: Indicadores</Grid>
