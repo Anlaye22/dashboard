@@ -1,35 +1,34 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react';
+import { Grid, Box } from '@mui/material';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <Box
+      sx={{
+        minHeight: '100vh',
+        backgroundColor: '#121212',
+        display: 'flex',
+        justifyContent: 'center',
+        padding: 4,
+      }}
+    >
+      <Box sx={{ maxWidth: 1200, width: '100%' }}>
+        <div className="App">
+          <h1 style={{ color: 'white' }}>Bienvenido a mi Dashboard</h1>
+        </div>
+
+        <Grid container spacing={5} justifyContent="center" alignItems="center">
+          <Grid size={{ xs: 12, md: 12 }}>Elemento: Encabezado</Grid>
+          <Grid size={{ xs: 12, md: 12 }}>Elemento: Alertas</Grid>
+          <Grid size={{ xs: 12, md: 3 }}>Elemento: Selector</Grid>
+          <Grid size={{ xs: 12, md: 9 }}>Elemento: Indicadores</Grid>
+          <Grid size={{ xs: 12, md: 6 }}>Elemento: Gráfico</Grid>
+          <Grid size={{ xs: 12, md: 6 }}>Elemento: Tabla</Grid>
+          <Grid size={{ xs: 12, md: 12 }}>Elemento: Información adicional</Grid>
+        </Grid>
+      </Box>
+    </Box>
+  );
 }
 
-export default App
+export default App;
