@@ -3,10 +3,10 @@ import { Grid } from '@mui/material';
 function App() {
    return (
       <>
-         <div className="App">
+         <div className="App" style={{ textAlign: 'center', margin: '10px' }}>
             <h1>Bienvenido a mi Dashboard</h1>
-         </div>   
-         <Grid container spacing={5} justifyContent="center" alignItems="center" >
+         </div>
+         <Grid container spacing={5} justifyContent="center" alignItems="center">
 
             {/* Encabezado */}
             <Grid  size={{ xs: 12, md: 12 }}>Elemento: Encabezado</Grid>
