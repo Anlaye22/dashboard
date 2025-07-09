@@ -4,6 +4,8 @@ import AlertUI from './components/AlertUI';
 import SelectorUI from './components/SelectorUI';
 import IndicatorUI from './components/IndicatorUI';
 import DataFetcher from './functions/DataFetcher';
+import TableUI from './components/TableUI';
+import ChartUI from './components/ChartUI';
 
 function App() {
    const dataFetcherOutput = DataFetcher();
@@ -16,19 +18,17 @@ function App() {
          <Grid container spacing={5} justifyContent="center" alignItems="center">
 
             {/* Encabezado */}
-            <Grid size={{ xs: 12, md: 12 }}>
-               Elemento: Encabezado <HeaderUI/> 
+            <Grid size={{ xs: 12, md: 12 }}> 
+               <HeaderUI/>
             </Grid>
 
             {/* Alertas */}
-            <Grid container justifyContent="right" alignItems="center"> 
-               Elemento: Alertas 
+            <Grid container justifyContent="right" alignItems="center">  
                <AlertUI description="No se preveen lluvias"/>
             </Grid>
 
             {/* Selector */}
             <Grid size={{ xs: 12, md: 3 }}>
-               Elemento: Selector
                <SelectorUI/>
             </Grid>
 
@@ -87,17 +87,16 @@ function App() {
 
             {/* Gráfico */}
             <Grid sx={{ display: { xs: "none", md: "block"} }}>
-               Elemento: Gráfico
+               <ChartUI />
             </Grid>
 
             {/* Tabla */}
             <Grid sx={{ display: { xs: "none", md: "block" } }}>
-               Elemento: Tabla
+               <TableUI />
             </Grid>
 
             {/* Información adicional */}
             <Grid>
-               Elemento: Tabla
             </Grid>
 
          </Grid>
