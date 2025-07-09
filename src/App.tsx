@@ -12,14 +12,13 @@ function App() {
    
    return (
       <>
-         <div className="App" style={{ textAlign: 'center', margin: '10px' }}>
-            <h1>Bienvenido a mi Dashboard</h1>
-         </div>
          <Grid container spacing={5} justifyContent="center" alignItems="center">
 
             {/* Encabezado */}
-            <Grid size={{ xs: 12, md: 12 }}> 
+            <Grid size={{ xs: 12, md: 12 }}>
+               <Grid container justifyContent="center" alignItems="center"> 
                <HeaderUI/>
+               </Grid>
             </Grid>
 
             {/* Alertas */}
