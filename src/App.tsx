@@ -26,7 +26,7 @@ type DataFetcherOutput = {
 };
 
 function App() {
-   const dataFetcherOutput = DataFetcher() as DataFetcherOutput;
+   const dataFetcherOutput = DataFetcher();
    return (
       <>
          <div className="App" style={{ textAlign: 'center', margin: '10px' }}>
