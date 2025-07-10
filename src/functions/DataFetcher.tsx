@@ -1,23 +1,34 @@
 import { useEffect, useState } from 'react';
-import type { OpenMeteoResponse } from '../types/DashboardTypes';
+import type { OpenMeteoResponse, CityCoordinates  } from '../types/DashboardTypes';
 
-
+interface DataFetcherProps {
+    coordinates: CityCoordinates | undefined; 
+}
 interface DataFetcherOutput {
     data: OpenMeteoResponse | null;
     loading: boolean;
     error: string | null;
 }
 
-export default function DataFetcher() : DataFetcherOutput {
-
+export default function DataFetcher({ coordinates }: DataFetcherProps): DataFetcherOutput {
     const [data, setData] = useState<OpenMeteoResponse | null>(null);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
+        if (!coordinates?.latitude || !coordinates?.longitude || !coordinates?.timezone) {
+            setData(null);
+            setError(null);
+            setLoading(false);
+            return;
+        }
 
+        setLoading(true);
+        setError(null);
+
+        const encodedTimezone = encodeURIComponent(coordinates.timezone);
         // Reemplace con su URL de la API de Open-Meteo obtenida en actividades previas
-        const url = `https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&hourly=temperature_2m,wind_speed_10m&current=temperature_2m,relative_humidity_2m,apparent_temperature,wind_speed_10m&timezone=America%2FChicago`
+        const url = `https://api.open-meteo.com/v1/forecast?latitude=${coordinates.latitude}&longitude=${coordinates.longitude}&hourly=temperature_2m,wind_speed_10m&current=temperature_2m,relative_humidity_2m,apparent_temperature,wind_speed_10m&timezone=${encodedTimezone}`;
 
         const fetchData = async () => {
 
@@ -47,7 +58,7 @@ export default function DataFetcher() : DataFetcherOutput {
 
         fetchData();
 
-    }, []); // El array vacío asegura que el efecto se ejecute solo una vez después del primer renderizado
+    }, [coordinates]); // El array vacío asegura que el efecto se ejecute solo una vez después del primer renderizado
 
     return { data, loading, error };
 

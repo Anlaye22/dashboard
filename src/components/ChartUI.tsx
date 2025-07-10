@@ -1,25 +1,53 @@
 import { LineChart } from '@mui/x-charts/LineChart';
 import Typography from '@mui/material/Typography';
+import type { OpenMeteoResponse } from '../types/DashboardTypes';
 
-const arrValues1 = [4000, 3000, 2000, 2780, 1890, 2390, 3490];
-const arrValues2 = [2400, 1398, 9800, 3908, 4800, 3800, 4300];
-const arrLabels = ['A','B','C','D','E','F','G'];
+interface ChartUIProps {
+    data: OpenMeteoResponse | null;
+}
 
+export default function ChartUI({ data }: ChartUIProps) {
 
-export default function ChartUI() {
-   return (
-      <>
-         <Typography variant="h5" component="div">
-            Chart arrLabels vs arrValues1 & arrValues2
-         </Typography>
-         <LineChart
-            height={300}
-            series={[
-               { data: arrValues1, label: 'value1'},
-               { data: arrValues2, label: 'value2'},
-            ]}
-            xAxis={[{ scaleType: 'point', data: arrLabels }]}
-         />
-      </>
-   );
+    if (!data || !data.hourly?.time || !data.hourly?.temperature_2m) {
+        return (
+            <Typography variant="h6" component="div" sx={{ mt: 2 }}>
+                Esperando datos del clima para el gráfico...
+            </Typography>
+        );
+    }
+
+    const chartLabels = data.hourly.time.map((timeString: string) => {
+        const date = new Date(timeString);
+        return date.getHours() + ':00';
+    });
+    const chartTemperatures = data.hourly.temperature_2m;
+
+    return (
+        <>
+            <Typography variant="h5" component="div">
+                Temperatura por Hora ({data.current_units.temperature_2m})
+            </Typography>
+            <LineChart
+                height={300}
+                series={[
+                    {
+                        data: chartTemperatures,
+                        label: 'Temperatura (2m)',
+                        // ¡CORRECCIÓN AQUÍ! Cambiado de yAxisKey a yAxisId
+                        yAxisId: 'temperatureAxis'
+                    },
+                ]}
+                xAxis={[{
+                    scaleType: 'point',
+                    data: chartLabels,
+                    label: 'Hora'
+                }]}
+                // Definición de los ejes Y. Asegúrate de que el 'id' coincida con 'yAxisId' en la serie
+                yAxis={[{
+                    id: 'temperatureAxis', // El ID debe coincidir con yAxisId de la serie
+                    label: `Temperatura (${data.current_units.temperature_2m})`
+                }]}
+            />
+        </>
+    );
 }

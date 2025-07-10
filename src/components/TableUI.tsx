@@ -1,66 +1,87 @@
 import Box from '@mui/material/Box';
-import { DataGrid, type GridColDef } from '@mui/x-data-grid';
+import { DataGrid, type GridColDef} from '@mui/x-data-grid';
+import Typography from '@mui/material/Typography'; 
+import type { OpenMeteoResponse } from '../types/DashboardTypes'; 
 
-function combineArrays(arrLabels: Array<string>, arrValues1: Array<number>, arrValues2: Array<number>) {
-   return arrLabels.map((label, index) => ({
-      id: index,
-      label: label,
-      value1: arrValues1[index],
-      value2: arrValues2[index]
-   }));
+
+interface TableUIProps {
+    data: OpenMeteoResponse | null;
 }
 
-const columns: GridColDef[] = [
-   { field: 'id', headerName: 'ID', width: 90 },
-   {
-      field: 'label',
-      headerName: 'Label',
-      width: 150,
-   },
-   {
-      field: 'value1',
-      headerName: 'Value 1',
-      width: 150,
-   },
-   {
-      field: 'value2',
-      headerName: 'Value 2',
-      width: 150,
-   },
-   {
-      field: 'resumen',
-      headerName: 'Resumen',
-      description: 'No es posible ordenar u ocultar esta columna.',
-      sortable: false,
-      hideable: false,
-      width: 160,
-      valueGetter: (_, row) => `${row.label || ''} ${row.value1 || ''} ${row.value2 || ''}`,
-   },
-];
+export default function TableUI({ data }: TableUIProps) {
 
-const arrValues1 = [4000, 3000, 2000, 2780, 1890, 2390, 3490];
-const arrValues2 = [2400, 1398, 9800, 3908, 4800, 3800, 4300];
-const arrLabels = ['A','B','C','D','E','F','G'];
+    
+    if (!data || !data.hourly?.time || !data.hourly?.temperature_2m || !data.hourly?.wind_speed_10m) {
+        return (
+            <Typography variant="h6" component="div" sx={{ mt: 2 }}>
+                Esperando datos del clima para la tabla...
+            </Typography>
+        );
+    }
 
-export default function TableUI() {
+   
+    const rows = data.hourly.time.map((timeString: string, index: number) => {
+        const date = new Date(timeString);
+        const formattedTime = date.getHours() + ':00'; // Formatear a HH:00
 
-   const rows = combineArrays(arrLabels, arrValues1, arrValues2);
+        return {
+            id: index, 
+            time: formattedTime,
+            temperature_2m: data.hourly.temperature_2m[index],
+            wind_speed_10m: data.hourly.wind_speed_10m[index],
+            
+            // relative_humidity_2m: data.hourly.relative_humidity_2m[index], 
+        };
+    });
 
-   return (
-      <Box sx={{ height: 350, width: '100%' }}>
-         <DataGrid
-            rows={rows}
-            columns={columns}
-            initialState={{
-               pagination: {
-                  paginationModel: {
-                     pageSize: 5,
-                  },
-               },
-            }}
-            pageSizeOptions={[5]}
-            disableRowSelectionOnClick
-         />
-      </Box>
-   );
+    // Definir las columnas para DataGrid basadas en los datos de la API
+    const columns: GridColDef[] = [
+        { field: 'id', headerName: 'ID', width: 50 },
+        {
+            field: 'time',
+            headerName: 'Hora',
+            width: 100,
+        },
+        {
+            field: 'temperature_2m',
+            headerName: `Temp. (${data.current_units.temperature_2m})`, // Unidades dinámicas
+            width: 150,
+            valueFormatter: (params: { value: number | null | undefined }) => {
+                
+                return `${params.value ?? ''} ${data.current_units.temperature_2m}`;
+            }
+        },
+      
+         {
+               field: 'wind_speed_10m',
+            headerName: `Viento (${data.current_units.wind_speed_10m})`, // Unidades dinámicas
+            width: 150,
+            valueFormatter: (params: { value: number | null | undefined }) => {
+                
+                return `${params.value ?? ''} ${data.current_units.wind_speed_10m}`;
+            }
+        },
+        
+    ];
+
+    return (
+        <Box sx={{ height: 350, width: '100%' }}>
+            <Typography variant="h5" component="div" sx={{ mb: 2 }}>
+                Datos Horarios del Clima
+            </Typography>
+            <DataGrid
+                rows={rows}
+                columns={columns}
+                initialState={{
+                    pagination: {
+                        paginationModel: {
+                            pageSize: 5,
+                        },
+                    },
+                }}
+                pageSizeOptions={[5, 10, 25]} 
+                disableRowSelectionOnClick
+            />
+        </Box>
+    );
 }

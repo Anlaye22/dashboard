@@ -20,7 +20,7 @@ function App() {
       });
    };
 
-   const dataFetcherOutput = DataFetcher({ coordinates: selectedCityCoordinates });
+   const dataFetcherOutput = DataFetcher({coordinates: selectedCityCoordinates });
    return (
       <Grid container spacing={5} justifyContent="center" alignItems="center">
 

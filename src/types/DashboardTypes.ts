@@ -21,5 +21,15 @@ export type OpenMeteoResponse = {
   hourly: {
     time: string[];
     temperature_2m: number[];
+    wind_speed_10m: number[]; 
   };
 };
+export interface CityCoordinates {
+    latitude: number;
+    longitude: number;
+    timezone: string;
+}
+
+export interface City extends CityCoordinates {
+    name: string; 
+}
