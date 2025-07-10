@@ -15,6 +15,8 @@ export default function ChartUI({ data }: ChartUIProps) {
             </Typography>
         );
     }
+    console.log("ChartUI - Datos de tiempo para el gráfico:", data.hourly.time);
+    console.log("ChartUI - Datos de temperatura para el gráfico:", data.hourly.temperature_2m);
 
     const chartLabels = data.hourly.time.map((timeString: string) => {
         const date = new Date(timeString);

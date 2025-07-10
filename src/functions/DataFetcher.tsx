@@ -42,7 +42,10 @@ export default function DataFetcher({ coordinates }: DataFetcherProps): DataFetc
 
                 const result: OpenMeteoResponse = await response.json();
                 setData(result);
-
+                console.log("Respuesta completa de la API:", result);
+                console.log("Datos horarios (tiempo):", result.hourly?.time);
+                console.log("Datos horarios (temperatura):", result.hourly?.temperature_2m);
+                console.log("Datos horarios (viento):", result.hourly?.wind_speed_10m);
             } catch (err: unknown) {
 
                 if (err instanceof Error) {
