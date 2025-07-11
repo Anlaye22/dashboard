@@ -10,7 +10,12 @@ import ChartUI from './components/ChartUI';
 import type { City, CityCoordinates } from './types/DashboardTypes';
 
 function App() {
-   const [selectedCityCoordinates, setSelectedCityCoordinates] = useState<CityCoordinates | undefined>(undefined);
+    const defaultCity: CityCoordinates = {
+        latitude: -2.20, 
+        longitude: -79.90, 
+        timezone: "America/Guayaquil" 
+    };
+   const [selectedCityCoordinates, setSelectedCityCoordinates] = useState<CityCoordinates | undefined>(defaultCity);
 
    const handleCityChange = (city: City) => {
       setSelectedCityCoordinates({
