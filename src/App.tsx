@@ -1,4 +1,4 @@
-import { Grid } from '@mui/material';
+import { Grid, Paper, Typography } from '@mui/material';
 import { useState } from 'react';
 import HeaderUI from './components/HeaderUI';
 import AlertUI from './components/AlertUI';
@@ -106,10 +106,14 @@ function App() {
             <Grid size={{ xs: 6, md: 6 }} sx={{ display: { xs: "none", md: "block" } }}>
               <TableUI data={dataFetcherOutput.data} />
            </Grid>
-
+            <Grid size={{ xs: 6, md: 6 }}></Grid><Grid size={{ xs: 6, md: 6 }}></Grid>
             {/* Información adicional */}
-            <Grid>
-               Elemento: Información adicional
+            <Grid size={{ xs: 3, md:3 }} sx={{ display: { xs: "none", md: "block" } }}>
+                <Paper sx={{ textAlign: 'center', padding: '1rem' }}>
+                    <Typography variant="body1" color="text.secondary">
+                        Información Adicional del Dashboard
+                    </Typography>
+                </Paper>
             </Grid>
 
          </Grid>
