@@ -8,6 +8,8 @@ import DataFetcher from './functions/DataFetcher';
 import TableUI from './components/TableUI';
 import ChartUI from './components/ChartUI';
 import type { City, CityCoordinates } from './types/DashboardTypes';
+import CohereAssistant from './components/CohereAssistant';
+
 
 function App() {
     const defaultCity: CityCoordinates = {
@@ -113,7 +115,12 @@ function App() {
                     <Typography variant="body1" color="text.primary">
                         Información Adicional del Dashboard
                     </Typography>
+
                 </Paper>
+            </Grid>
+            {/* === Asistente Cohere === */}
+            <Grid size={{ xs: 12, md: 6 }}>
+                <CohereAssistant apiKey={import.meta.env.VITE_COHERE_KEY} />
             </Grid>
 
          </Grid>
