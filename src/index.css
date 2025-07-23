@@ -2,7 +2,7 @@
   --background-dark: #0A1929;
   --background-paper: #132F4C;
   --accent-blue: #3399FF;
-  --text-primary: #F5F5F5;
+  --text-primary: #F5F5F5; 
   --text-secondary: #CDCDCD;
   --border-color: rgba(51, 153, 255, 0.2);
 
@@ -97,7 +97,7 @@ h1 {
   outline: none !important;
 }
 
-/* ---- REGLA AÑADIDA PARA EL HOVER DE LA TABLA ---- */
+/* ---- HOVER de la tabla ---- */
 .MuiDataGrid-row:hover {
   background-color: rgba(51, 153, 255, 0.1) !important;
 }
@@ -109,7 +109,7 @@ h1 {
   fill: var(--text-secondary) !important;
 }
 .MuiChartsAxis-label {
-    fill: var(--text-primary) !important;
+  fill: var(--text-primary) !important;
 }
 
 .MuiAlert-root {
@@ -122,3 +122,35 @@ h1 {
 .MuiAlert-icon {
   color: #66ffb3 !important;
 }
+
+
+.recharts-cartesian-axis-tick text,
+.recharts-label,
+.recharts-legend-item-text {
+  fill: var(--text-primary) !important;
+}
+
+.recharts-cartesian-axis-line,
+.recharts-cartesian-grid-horizontal line,
+.recharts-cartesian-grid-vertical line {
+  stroke: rgba(255, 255, 255, 0.3) !important;
+}
+
+
+button.info-button,
+button.MuiButton-root {
+  color: var(--text-primary) !important;
+  border-color: var(--text-primary) !important;
+}
+
+
+.MuiTablePagination-root,
+.MuiTablePagination-toolbar,
+.MuiTablePagination-selectLabel,
+.MuiTablePagination-displayedRows,
+.MuiTablePagination-actions svg {
+  color: var(--text-primary) !important; 
+}
+
+
+

@@ -110,7 +110,7 @@ function App() {
             {/* Información adicional */}
             <Grid size={{ xs: 3, md:3 }} sx={{ display: { xs: "none", md: "block" } }}>
                 <Paper sx={{ textAlign: 'center', padding: '1rem' }}>
-                    <Typography variant="body1" color="text.secondary">
+                    <Typography variant="body1" color="text.primary">
                         Información Adicional del Dashboard
                     </Typography>
                 </Paper>
